@@ -28,13 +28,11 @@ bool Parser::eof() {
 string Parser::next() {
 	string token = "";
 	char k;
-	while (f.good()){
-		f.get(k);
+	while (f.good() && (f.get(k) != '\0')){
 		if (k == '\n' or k == ' ')
 			break;
-		else if (isValidChar(k)) {
+		else if (isValidChar(k))
 			token += tolower(k);
-		}
 		else if (not token.empty()) // If we just passed a nonValidChar and string has words, end token
 			break;
 		// Else continue to skip nonValid chars

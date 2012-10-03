@@ -1,0 +1,7 @@
+#!/bin/bash
+for file in Tests/*.txt ; do
+	echo "Running test '$file'... (output to '$file.out')"
+	./WordCount $file > $file.out
+	echo "Finished test '$file'."
+	echo
+done
