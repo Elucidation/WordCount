@@ -42,15 +42,15 @@ If we don't want to use much memory, in place quicksort which at best can do O(n
 Testing strategy
 ---
 * Passing in nonsensical files (example an binary exe file)
-* Small test file :    < 1MB (Lorem ipsum)
-* Real-world example:  < 1MB (Entire 'The Adventures of Sherlock Holmes' book as text file)
-* Stress test A :      > 10 MB file size (file containing increasing integers from 0 up)
-   1 char = 1 byte, 5 MB = 5e6 chars, so lets choose 2e6 integers with a space after each for >> 10MB file
-   All on one line, file size is ~14.5 MB
-   There are n=2e6 = 2 million words in file on one line, so map will need to have 2 million unique nodes
-* Stress test B :      2**30 > 1 billion character word input
+* Small test file :    < 1MB    (Lorem ipsum)
+* Stress test A :      > 14.5 MB  (file containing increasing integers from 0 up)
+	1 char = 1 byte, 5 MB = 5e6 chars, so lets choose 2e6 integers with a space after each for >> 10MB file, One line.
+	There are n=2e6 = 2 million words in file on one line, so map will need to have 2 million unique nodes
+* Stress test B :      > 285 MB (2**30 > 1 billion character word input was max_size() )
+	Test with 285 MB file containing roughly 298,844,160 characters (all letter 'a')
+* Real-world example:  < 1MB    (Entire 'The Adventures of Sherlock Holmes' book as text file)
 
-All cases passed, for nonsensical file, binary data was converted to ascii chars on the fly by cin to string, which resulted in non-visual characters like the bell character (computer beep), however code completes. For Stress test B, string allocation continues to work, a try/except needs to still be added for a exception raised when string.max_size() is broken, though I need to learn more about what sort of input this program expects, as that's pretty unusual in normal text files.
+All cases passed, for nonsensical file, binary data was converted to ascii chars on the fly by cin to string, which resulted in non-visual characters like the bell character (computer beep), however code completes. For Stress test B, string allocation continues to work, a try/except needs to still be added for a exception raised when string.max_size() is broken, though I need to learn more about what sort of input this program expects, as that's pretty unusual in normal text files, and for a 285MB file of one word, string continues to work.
 
 
 Assumptions made
