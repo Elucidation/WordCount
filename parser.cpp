@@ -22,6 +22,9 @@ void Parser::close() {
 bool Parser::eof() {
 	return f.eof();
 }
+
+/* Returns next word, in lower-case, words are de-limitted by spaces or new-lines 
+   If no token, returns empty string */
 string Parser::next() {
 	string token = "";
 	char k;
@@ -29,8 +32,12 @@ string Parser::next() {
 		f.get(k);
 		if (k == '\n' or k == ' ')
 			break;
-		else if (isValidChar(k))
-			token += k;
+		else if (isValidChar(k)) {
+			token += tolower(k);
+		}
+		else if (not token.empty()) // If we just passed a nonValidChar and string has words, end token
+			break;
+		// Else continue to skip nonValid chars
 	}
 	return token;
 }
