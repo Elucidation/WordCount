@@ -11,6 +11,25 @@ Parses a text file, reads out the words (characters separated by whitespace) and
 Other O(n) for iteration over words & hash map, size etc.
 Total big O : O(nlogn) due to quicksort.
 
+Files
+---
+`makefile`        = Makefile for building
+
+`parser.cpp`      = Class to open & parse a file for words
+`parser.h`        = 
+
+`README.markdown` = Explanations
+`README.txt`      = 
+`README_md.html`  = 
+
+`runTests`        = shell script to run all tests in `\Tests` directory
+
+`sorter.cpp`      = Class to apply quicksort to string array of words
+`sorter.h`        = 
+
+`wordcount.cpp`   = Main class wrapper to determine list of reverse alphabetically ordered word counts
+
+
 Building
 ---
 To build:
@@ -78,6 +97,8 @@ The limiting factors are the cin stream to string buffer limits, the map resizin
 
 * Real-world example (t5_sherlock) :  < 1MB    (Entire 'The Adventures of Sherlock Holmes' book as text file)
 
+Following files are not attached, but their truncated outputs are:
+
 * Stress test A (t6_stessA) :      > 14.5 MB  (file containing increasing integers from 0 up)
 	* 1 char = 1 byte, 5 MB = 5e6 chars, so lets choose 2e6 integers with a space after each for >> 10MB file, One line.
 	* There are n=2e6 = 2 million words in file on one line, so map will need to have 2 million unique nodes
@@ -85,7 +106,6 @@ The limiting factors are the cin stream to string buffer limits, the map resizin
 
 * Stress test B (t7_stressB) :      > 285 MB (2**30 > 1 billion character word input was max_size() )
 	* Test with 285 MB file containing roughly 298,844,160 characters (all letter 'a')
-	* Since it's 285MB I didn't attach it in zip, a large ascii file can replace this test
 
 
 All cases passed, for nonsensical file, binary data was converted to ascii chars on the fly by cin to string, which resulted in non-visual characters like the bell character (computer beep), however code completes, if binary null-byte encountered will end on that. 
