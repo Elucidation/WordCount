@@ -1,9 +1,7 @@
 #include <iostream>
 #include <map>
-#include <fstream>
+#include "parser.h"
 using namespace std;
-#define BUFFER_SIZE 1024 // Size of char buffer for a token
-
 
 /*
 Draft 1, basic working example without safety-checks
@@ -13,58 +11,6 @@ To build on linux systems: make
 To run with a test input file TEST_INPUT: wordcount.exe < TEST_INPUT
 
 */
-class Parser
-{
-public:
-	Parser(const char *filename);
-	~Parser();
-
-	void close();
-	bool eof(); // bool at end of file or not
-	string next(); // next string token
-
-private:
-	bool isValidChar(char c); // Is Letter or Number, whatever we deem valid
-	ifstream f; // file input stream
-
-};
-
-Parser::Parser(const char* filename) {
-	cout << "Loading " << filename << "...";
-	f.open(filename);
-	if (not f.is_open()) {
-		cout << "ERROR: Could not open file '" << filename << "'." << endl;
-	}
-	else
-		cout << "Successful." << endl;
-}
-
-Parser::~Parser() {
-	close();
-}
-void Parser::close() {
-	if (f && f.is_open())
-		f.close();
-}
-bool Parser::eof() {
-	return f.eof();
-}
-string Parser::next() {
-	string token = "";
-	char k;
-	while (f.good()){
-		f.get(k);
-		if (k == '\n' or k == ' ')
-			break;
-		else if (isValidChar(k))
-			token += k;
-	}
-	return token;
-}
-
-bool Parser::isValidChar(char c) {
-	return (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57); // UPPER or LOWER or DIGIT
-}
 
 int main(int argc, char const *argv[])
 {
