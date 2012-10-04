@@ -68,11 +68,10 @@ void HashMap::increment(string key) {
 		resize();
 	long hval = getTableHash(key);
 	// cout << "Inc: " << key << "(" << hval << ")... " << endl;
-	if (not table[hval]) {
+	if (not table[hval])
 		insert(hval,key,1);
-	}
 	else 
-		table[stringHash(key)]->increment();
+		table[hval]->increment();
 }
 
 /* uses hval = stringHash(key), and then iterates through hval till table[hval]'s 
