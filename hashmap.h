@@ -39,5 +39,5 @@ public:
 
 	typedef HashEntry ** iterator;
 	iterator begin() {return &table[0];};
-	iterator end() {return &table[max_size-1];};
+	iterator end() {return &table[max_size];};
 };
