@@ -1,5 +1,4 @@
 #include <iostream>
-#include <unordered_map>
 #include "parser.h"
 #include "sorter.h"
 #include "hashmap.h"
@@ -15,8 +14,6 @@ To build on linux systems: make
 To run with a test input file TEST_INPUT: wordcount(.exe) TEST_INPUT
 
 */
-
-typedef std::unordered_map<string, int> hashmap;
 
 int main(int argc, char const *argv[])
 {
