@@ -7,12 +7,11 @@ using namespace std;
 #define MAX_PRINT_CHARS 512 // Maximum number of chars in a word to print to screen (for testing)
 
 /*
-Draft 2, basic working example without direct string safety-checks
+Basic working word counter without direct string safety-checks
 STD usage: Uses std::cin, std::str, and std::unordered_map
 
 To build on linux systems: make
 To run with a test input file TEST_INPUT: wordcount(.exe) TEST_INPUT
-
 */
 
 int main(int argc, char const *argv[])
@@ -32,46 +31,45 @@ int main(int argc, char const *argv[])
 	// Parse words in from File
 	/////// ifstream I/O occurs in Parser
 	Parser txtParser(filename);
-	cout << "Parsing input file '"<< filename <<"' to map...";
+	cerr << "Parsing input file '"<< filename <<"' to map...";
 	while (!txtParser.eof()) {
 		word = txtParser.next(); // all letters converted to lower-case
 		if (not word.empty()) {
-			// cout << "Trying to add " << word << " to wordCounts" << endl;
 			wordCounts.increment(word);
 		}
 	}
-	cout << "Successful." << endl;
+	cerr << "Successful." << endl;
 	txtParser.close();
 	///////
 
 	/////// O(n) routine to create list of words to be sorted
-	cout << "Generating word list for sorting...";
+	cerr << "Generating word list for sorting...";
 	string* words = new string[wordCounts.getLength()]; // Key list to be sorted, (de)allocated with new/delete
 	if (!words) {
-		cout << "Could not allocate string array of length " << wordCounts.getLength() << endl;
+		cerr << "Could not allocate string array of length " << wordCounts.getLength() << endl;
 		return 0;
 	}
 	
 	int i=0;
 	for (HashMap::iterator entryp = wordCounts.begin(); entryp < wordCounts.end(); entryp++) {
-		// cout << "Bucket(" << entryp << ")" << endl;
+		// cerr << "Bucket(" << entryp << ")" << endl;
 		if (*entryp) // only look at slots with (*entryp) in them
 		{
 			words[i++] = (*entryp)->getKey();
-			// cout << "words loaded with '" << (*entryp)->getKey() << "'..." << endl;
+			// cerr << "words loaded with '" << (*entryp)->getKey() << "'..." << endl;
 		}
 	}
 	if (i != wordCounts.getLength()) {
-		cout << "Error, only " << i << "/" << wordCounts.getLength() << " words loaded from hashmap." << endl;
+		cerr << "Error, only " << i << "/" << wordCounts.getLength() << " words loaded from hashmap." << endl;
 		return -1;
 	}
-	cout << "Successful." << endl;;
+	cerr << "Successful." << endl;;
 
 	// Sort words alphabetically
 	/////// unordered_map needs to be sorted by key alphabetically
-	cout << "Sorting word list...";
+	cerr << "Sorting word list reverse alphabetically...";
 	quicksort(words, wordCounts.getLength()); // Quicksort average case is O(nlogn), worst O(n^2) when list is in reverse order (highly unlikely in these hashing cases)
-	cout << "Successful." << endl;;
+	cerr << "Successful." << endl;;
 
 	// Pretty-print words & counts reverse-alphabetically
 	/////// Reverse iterate over words and get hash value as well, an O(1) operation n times yielding O(n)
@@ -86,7 +84,8 @@ int main(int argc, char const *argv[])
 	}
 
 	///////
-	cout << "Number of entries in list: " << wordCounts.getLength() << endl;
+	cerr << "Number of entries in list: " << wordCounts.getLength() << endl;
+
 
 	// In total, biggest O is due to sort, an average/best case performance due to quicksort of O(nlogn),
 	//   worst case O(n^2) with reverse ordered list by hash value (unlikely), memory used is of order O(n) for quicksort

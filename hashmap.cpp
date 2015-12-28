@@ -17,7 +17,7 @@ void HashEntry::increment() {value++;}
 HashMap::HashMap() {
 	table = new HashEntry*[TABLE_START_SIZE];
 	if(!table) {
-		cout << "ERROR: Failed to allocate new table of size " << max_size << endl;
+		cerr << "ERROR: Failed to allocate new table of size " << max_size << endl;
 		max_size = 0;
 		return;
 	}
@@ -38,7 +38,7 @@ HashMap::~HashMap() {
 // Returns -1 if didn't find key
 long HashMap::get(string key) {
 	long hval = getTableHash(key);
-	// cout << "Get key " << key << "(" << hval << ")" << endl;
+	// cerr << "Get key " << key << "(" << hval << ")" << endl;
 	if (!table[hval])
 		return -1;
 
@@ -54,10 +54,10 @@ void HashMap::put(string key, long value) {
  /* Private helper, puts new HashEntry(key,value) into table[index]
     Assumes caller checked table[index] is empty */
 void HashMap::insert(long index, string key, long value) {
-	// cout << "Inserting entry ("<<key<<","<<value<<") in bucket (" << index << ")... " << endl;
+	// cerr << "Inserting entry ("<<key<<","<<value<<") in bucket (" << index << ")... " << endl;
 	table[index] = new HashEntry(key,value);
 	if(!table[index]) {
-		cout << "ERROR: Failed to allocate space for new HashEntry." << endl;
+		cerr << "ERROR: Failed to allocate space for new HashEntry." << endl;
 		return;
 	}
 	size++; // keep track of # entries in table
@@ -67,7 +67,7 @@ void HashMap::increment(string key) {
 	if (float(size)/max_size >= loadfactor)
 		resize();
 	long hval = getTableHash(key);
-	// cout << "Inc: " << key << "(" << hval << ")... " << endl;
+	// cerr << "Inc: " << key << "(" << hval << ")... " << endl;
 	if (not table[hval])
 		insert(hval,key,1);
 	else 
@@ -97,15 +97,15 @@ long HashMap::stringHash(string key) {
 
 
 void HashMap::resize() {
-	// cout << "Load: " << size << "/" << max_size << "=" << float(size)/max_size << " > " << loadfactor << ". ";
-	// cout << "Resizing table from " << max_size << " to " << max_size*TABLE_RESIZE_FACTOR << "...";
+	// cerr << "Load: " << size << "/" << max_size << "=" << float(size)/max_size << " > " << loadfactor << ". ";
+	// cerr << "Resizing table from " << max_size << " to " << max_size*TABLE_RESIZE_FACTOR << "...";
 	HashEntry **oldtable = table;
 	long old_max_size = max_size;
 	
 	max_size *= TABLE_RESIZE_FACTOR;
 	table = new HashEntry*[max_size];
 	if(!table) {
-		cout << "ERROR: Failed to allocate new table of size " << max_size << endl;
+		cerr << "ERROR: Failed to allocate new table of size " << max_size << endl;
 		table = oldtable;
 		return;
 	}
@@ -119,5 +119,5 @@ void HashMap::resize() {
 
 	delete[] oldtable; // Don't need to delete individual entries since pointers passed to new table
 	
-	// cout << "Successful." << endl;
+	// cerr << "Successful." << endl;
 }

@@ -1,6 +1,3 @@
+wordcount
 *.exe
 *.o
-*.txt
-*.zip
-*.html
-*.out

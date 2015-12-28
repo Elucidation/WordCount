@@ -3,13 +3,13 @@
 using namespace std;
 
 Parser::Parser(const char* filename) {
-	cout << "Loading " << filename << "...";
+	cerr << "Loading " << filename << "...";
 	f.open(filename);
 	if (not f.is_open()) {
-		cout << "ERROR: Could not open file '" << filename << "'." << endl;
+		cerr << "ERROR: Could not open file '" << filename << "'." << endl;
 	}
 	else
-		cout << "Successful." << endl;
+		cerr << "Successful." << endl;
 }
 
 Parser::~Parser() {
