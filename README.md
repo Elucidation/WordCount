@@ -1,4 +1,4 @@
-Unique Word Count in Reverse Alphabetical order
+Unique Word Count in Reverse Alphabetical order [![Build Status](https://travis-ci.org/Elucidation/WordCount.svg?branch=master)](https://travis-ci.org/Elucidation/WordCount)
 ===
 Sameer Ansari
 
@@ -15,26 +15,24 @@ Has been tested with all tests in Tests folder as well as two stress tests not i
 
 Files
 ---
-`wordcount.cpp`   = Main class wrapper to determine list of reverse alphabetically ordered word counts
-
-`makefile`        = Makefile for building
-
-`parser.cpp/h`      = Class to open & parse a file for words
-
-`hashmap.cpp/h`     = Class for hash map implementation
-
-`sorter.cpp/h`      = Class to apply quicksort to string array of words
-
-`runTests`        = shell script to run all tests in `\Tests` directory
-
-`README.markdown/txt/_md.html` = Explanations
+* `wordcount.cpp`   = Main class wrapper to determine list of reverse alphabetically ordered word counts
+* `makefile`        = Makefile for building
+* `parser.cpp/h`    = Class to open & parse a file for words
+* `hashmap.cpp/h`   = Class for hash map implementation
+* `sorter.cpp/h`    = Class to apply quicksort to string array of words
+* `tests/`          = Folder containing test input text files and correct expected outputs
+* ~~`runTests`      = shell script to run all tests in `\Tests` directory~~ *(Not used anymore)*
 
 
-Building
+Building & Testing
 ---
 To build:
 
 	make
+
+To test:
+
+	make test
 
 Usage
 ---
@@ -65,11 +63,7 @@ Output:
 	Number of entries in list: 6
 
 
-To run all tests in `Tests` folder:
-
-Linux `./runTests`, Windows `bash runTests`
-
-Big-O runtime
+Big O Rruntime
 ---
 Parsing is done via ifstream one character at a time, it is O(n) to get every character in file up to null-byte.
 
@@ -77,7 +71,7 @@ The Hash table is implemented using open addressing for collision resolution (li
 
 Input & Output to the Hash table is constant time O(1) I/O with worst case O(n) with a full table (which load factor avoids). Then, to fill the map with a file of n words is O(n).
 
-The only disadvantage is the hash table is not in order (hash function decides slot). 
+One disadvantage is the hash table is not in order (hash function decides slot).
 
 To sort the hash table, quick sort is chosen because it tends to be faster than mergesort and it's worst case possibility of O(n^2) with a reverse ordered list is highly unlikely. Memory used is O(n).
 
